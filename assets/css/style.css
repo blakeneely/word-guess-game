@@ -1,0 +1,26 @@
+body {
+    background-color: black;
+    font-family: "Benguiat Pro ITC W04 Book Cond" !important;
+    color: #9f1113;
+}
+
+.title {
+    position: relative;
+}
+.title-img {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -3em;
+    /* display: block; */
+    width: 100%;
+}
+.title h1 {
+    text-align: center;
+    color: #9f1113;
+    width: 100%;
+    position: absolute; 
+    bottom: 50px;    
+}
+.game {
+    text-align: center;
+}
