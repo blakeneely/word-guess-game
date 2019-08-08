@@ -13,13 +13,18 @@ body {
     margin-top: -3em;
     /* display: block; */
     width: 100%;
+    max-height: 500px;
+}
+.img-div {
+    max-height: 400px;
+    overflow: hidden;
 }
 .title h1 {
     text-align: center;
     color: #9f1113;
     width: 100%;
-    position: absolute; 
-    bottom: 50px;    
+    /* position: absolute; 
+    bottom: 50px;     */
 }
 .game {
     font-size: 24px;

@@ -59,6 +59,7 @@ function checkGuess(array, element) {               // Finds wrong guesses and p
         wrongGuesses.push(element);
         remainingLetters--;
         wrongGuessesText.textContent = "Incorrect guesses: " + wrongGuesses.join(" ");
+        remainingLettersText.textContent = "Incorrect guesses remaining: " + remainingLetters;
         roundOver();
     }
     else if (array.indexOf(element) !== -1){       // Finds right guesses and loops them into answerArray
