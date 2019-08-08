@@ -6,7 +6,7 @@ var wordBank = [
     "nancy",
     "telekinesis",
     "upside down",
-    "mind flayer",
+    "mindflayer",
     "demogorgon",
     "eggos",
     "eighties",
@@ -19,49 +19,75 @@ var wordBank = [
     "ghostbusters",
     "arcade"
 ];
-// Get a random word from the word bank
-var word = wordBank[Math.floor(Math.random() * wordBank.length)];
 
-//  Display the answer that shows underscores to start, will fill with correct letters later with each guess
-var answerArray = [];
-for (var i = 0; i < word.length; i++) {
-    answerArray[i] = "_";
-}
+var word = "";
+var answerArray = [];                       // Holds "_" and fills with correct letters guessed
+var wrongGuesses = [];                      // Holds guessed letters
+var wordLetters = []; 
+var remainingLetters = 9;         // 
+var wins = 0;
+var losses = 0;
 var answerArrayText = document.getElementById("answer-array-text");
+var remainingLettersText = document.getElementById("remaining-letters-text");
+var wrongGuessesText = document.getElementById("guessed-letters-text");
+
+
+function getRandomWord() {                          //Function to pull random word from wordbank and assign to variable word
+    word = wordBank[Math.floor(Math.random() * wordBank.length)];
+    wordLetters = word.split("");                   // Splits word into array
+    console.log(wordLetters);
+}
+function makeAnswerArray(){
+    for (var i = 0; i < word.length; i++) {
+        answerArray[i] = "_";
+    }
+    answerArrayText.textContent = answerArray.join(" ");
+}
+function checkGuess(array, element) {               // Finds wrong guesses and pushes them to wrongGuesses array
+    if (array.indexOf(element) === -1) {
+        wrongGuesses.push(element);
+        remainingLetters--;
+        wrongGuessesText.textContent = "Letters you have guessed: " + wrongGuesses.join(" ");
+        roundOver();
+    }
+}
+function roundOver(){
+    if (answerArray == wordLetters) {
+        alert("You win!");
+    }
+    else if (remainingLetters = 0) {
+        alert("You lose!");
+    }
+}
 
 // Display number of letters left to guess
-var remainingLetters = word.length;
-var remainingLettersText = document.getElementById("remaining-letters-text");
 
 // Display letters that have been guessed
-var guessedLetters = [];
-var guessedLettersText = document.getElementById("guessed-letters-text");
 
 // **** Main Game ****
     // Get user input
     document.onkeyup = function(event) {
         var guess = event.key.toLowerCase();
+        checkGuess(wordLetters, guess);
+        
         // If user guess is correct
         for (var j = 0; j < word.length; j++) {
             if (word[j] === guess) {
                 // display correct letter in answer
                 answerArray[j] = guess;
                 // subtract from remaining letters left to guess
-                remainingLetters--;
+                roundOver();
             }
-            else {
-                // If user guess is incorrect show letter in guessedLetters
-                guessedLetters.push(guess);
-            }
-            answerArrayText.textContent = answerArray;
-            guessedLettersText.textContent = "Letters you have guessed: " + guessedLetters;
-            remainingLettersText.textContent = "Remaining letters to guess: " + remainingLetters;
+            answerArrayText.textContent = answerArray.join(" ");
         }
     };
 
+// ********* Main Game *********
+getRandomWord();
+makeAnswerArray();
 
-console.log(word);
+
+
 // Give congratulations
 
 // Restart game
-
