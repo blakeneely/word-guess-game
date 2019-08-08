@@ -26,6 +26,7 @@ var wordLetters = [];                       // Holds random word split into an a
 var remainingLetters = 9;                   // Number of incorrect guesses 
 var wins = 0;
 var losses = 0;
+var getStartedText = document.getElementById("get-started-text");
 var answerArrayText = document.getElementById("answer-array-text");
 var remainingLettersText = document.getElementById("remaining-letters-text");
 var wrongGuessesText = document.getElementById("guessed-letters-text");
@@ -97,6 +98,7 @@ function roundOver(){
 // **** Main Game ****
     // Get user input
     document.onkeyup = function(event) {
+        getStartedText.textContent = " ";
         var guess = event.key.toLowerCase();
         checkGuess(wordLetters, guess);
         
