@@ -26,6 +26,7 @@ var wordLetters = [];                       // Holds random word split into an a
 var remainingLetters = 9;                   // Number of incorrect guesses 
 var wins = 0;
 var losses = 0;
+var audio = new Audio("assets/sound/stranger_things.mp3")
 var getStartedText = document.getElementById("get-started-text");
 var answerArrayText = document.getElementById("answer-array-text");
 var remainingLettersText = document.getElementById("remaining-letters-text");
@@ -79,6 +80,7 @@ function checkGuess(array, element) {               // Finds wrong guesses and p
 function roundOver(){
     if (answerArray.toString() == wordLetters.toString()) {
         wins++;
+        audio.play();
         alert("You win! The correct word was " + word);
         winsText.textContent = "Wins: " + wins;
         roundStart();
@@ -102,7 +104,6 @@ function roundOver(){
         var guess = event.key.toLowerCase();
         checkGuess(wordLetters, guess);
         roundOver();
-
     };
 
 // ********* Main Game *********
