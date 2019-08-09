@@ -38,9 +38,11 @@ function roundStart() {
     wrongGuesses = [];
     wordLetters = [];
     remainingLetters = 9;
+    remainingLettersText.textContent = "Incorrect guesses remaining: " + remainingLetters;
     wrongGuessesText.textContent = "Incorrect guesses: " + wrongGuesses.join(" ");
     getRandomWord();
     makeAnswerArray();
+    console.log(remainingLetters);
 
 }
 
@@ -61,7 +63,6 @@ function checkGuess(array, element) {               // Finds wrong guesses and p
         remainingLetters--;
         wrongGuessesText.textContent = "Incorrect guesses: " + wrongGuesses.join(" ");
         remainingLettersText.textContent = "Incorrect guesses remaining: " + remainingLetters;
-        roundOver();
     }
     else if (array.indexOf(element) !== -1){       // Finds right guesses and loops them into answerArray
         // If user guess is correct
@@ -70,7 +71,6 @@ function checkGuess(array, element) {               // Finds wrong guesses and p
                 // display correct letter in answer
                 answerArray[j] = element;
                 // subtract from remaining letters left to guess
-                roundOver();
             }
             answerArrayText.textContent = answerArray.join(" ");
         }
@@ -101,7 +101,8 @@ function roundOver(){
         getStartedText.textContent = " ";
         var guess = event.key.toLowerCase();
         checkGuess(wordLetters, guess);
-        
+        roundOver();
+
     };
 
 // ********* Main Game *********
