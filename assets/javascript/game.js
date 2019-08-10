@@ -19,14 +19,14 @@ var wordBank = [
     "halloween"
 ];
 
-var word = "";
+var word = "";                              // Holds random word from wordBank array
 var answerArray = [];                       // Holds "_" and fills with correct letters guessed
 var wrongGuesses = [];                      // Holds guessed letters
 var wordLetters = [];                       // Holds random word split into an array
-var remainingLetters = 9;                   // Number of incorrect guesses 
+var remainingLetters = 11;                  // Number of incorrect guesses 
 var wins = 0;
 var losses = 0;
-var audio = new Audio("assets/sound/stranger_things.mp3")
+var audio = new Audio("assets/sound/stranger_things.mp3")       // Audio for 
 var getStartedText = document.getElementById("get-started-text");
 var answerArrayText = document.getElementById("answer-array-text");
 var remainingLettersText = document.getElementById("remaining-letters-text");
@@ -34,30 +34,29 @@ var wrongGuessesText = document.getElementById("guessed-letters-text");
 var winsText = document.getElementById("wins-text");
 var lossesText = document.getElementById("losses-text");
 
-function roundStart() {
+function roundStart() {                             // Function to clear out arrays and reset everything for a new round
     answerArray = [];
     wrongGuesses = [];
     wordLetters = [];
-    remainingLetters = 9;
+    remainingLetters = 11;
     remainingLettersText.textContent = "Incorrect guesses remaining: " + remainingLetters;
     wrongGuessesText.textContent = "Incorrect guesses: " + wrongGuesses.join(" ");
     getRandomWord();
     makeAnswerArray();
-    console.log(remainingLetters);
-
 }
 
-function getRandomWord() {                          //Function to pull random word from wordbank and assign to variable word
+function getRandomWord() {                          // Function to pull random word from wordbank and assign to variable word
     word = wordBank[Math.floor(Math.random() * wordBank.length)];
-    wordLetters = word.split("");                   // Splits word into array
-    console.log(wordLetters);
+    wordLetters = word.split("");                   // Splits random word into array
 }
-function makeAnswerArray(){
+
+function makeAnswerArray(){                         // Function to load answerArray with blanks the length of random word
     for (var i = 0; i < word.length; i++) {
         answerArray[i] = "_";
     }
     answerArrayText.textContent = answerArray.join(" ");
 }
+
 function checkGuess(array, element) {               // Finds wrong guesses and pushes them to wrongGuesses array
     if (array.indexOf(element) === -1) {
         wrongGuesses.push(element);
@@ -65,19 +64,18 @@ function checkGuess(array, element) {               // Finds wrong guesses and p
         wrongGuessesText.textContent = "Incorrect guesses: " + wrongGuesses.join(" ");
         remainingLettersText.textContent = "Incorrect guesses remaining: " + remainingLetters;
     }
-    else if (array.indexOf(element) !== -1){       // Finds right guesses and loops them into answerArray
-        // If user guess is correct
+    else if (array.indexOf(element) !== -1){        // Finds right guesses and loops them into answerArray
         for (var j = 0; j < word.length; j++) {
             if (word[j] === element) {
                 // display correct letter in answer
                 answerArray[j] = element;
-                // subtract from remaining letters left to guess
             }
             answerArrayText.textContent = answerArray.join(" ");
         }
     };       
 };
-function roundOver(){
+
+function roundOver(){                               // Function to end round, adds to wins or losses, congratulates and plays sound
     if (answerArray.toString() == wordLetters.toString()) {
         wins++;
         audio.play();
@@ -93,25 +91,14 @@ function roundOver(){
     }
 };
 
-// Display number of letters left to guess
-
-// Display letters that have been guessed
-
 // **** Main Game ****
-    // Get user input
-    document.onkeyup = function(event) {
-        getStartedText.textContent = " ";
-        var guess = event.key.toLowerCase();
-        checkGuess(wordLetters, guess);
-        roundOver();
-    };
-
-// ********* Main Game *********
+    
+document.onkeyup = function(event) {            
+    var guess = event.key.toLowerCase();
+    getStartedText.textContent = " ";
+    checkGuess(wordLetters, guess);
+    roundOver();
+};
 getRandomWord();
 makeAnswerArray();
 
-
-
-// Give congratulations
-
-// Restart game
